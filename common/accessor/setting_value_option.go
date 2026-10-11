@@ -12,6 +12,7 @@ import (
 type SettingValueOption struct {
 	UserSetting
 	Docker                      map[string]*types2.DockerEnv `json:"docker,omitempty"`
+	Mcp                         *McpConfig                   `json:"mcp,omitempty"`
 	DiskUsage                   *DiskUsage                   `json:"diskUsage,omitempty"`
 	TwoFa                       *TwoFa                       `json:"twoFa,omitempty"`
 	Passkey                     *Passkey                     `json:"passkey,omitempty"`
@@ -159,4 +160,18 @@ type NotificationEmailServer struct {
 type Notification struct {
 	EmailServer *NotificationEmailServer `json:"emailServer,omitempty"`
 	Status      []string                 `json:"status,omitempty"`
+}
+
+// McpConfig 内置 MCP server 配置（feat/mcp-native）。
+type McpConfig struct {
+	Enable  bool   `json:"enable,omitempty"`
+	Token   string `json:"token,omitempty"`
+	Profile string `json:"profile,omitempty"`
+	// ServiceCredential 回环调用的 service 身份（启用时由管理面写入）
+	ServiceCredential *McpServiceCredential `json:"serviceCredential,omitempty"`
+}
+
+type McpServiceCredential struct {
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
 }

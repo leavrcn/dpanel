@@ -67,6 +67,11 @@ func (provider *Provider) Register(httpServer *httpserver.Server) {
 		// 配置
 		cors.POST("/common/setting/founder", controller.Setting{}.Founder)
 		cors.POST("/common/setting/get-setting", controller.Setting{}.GetSetting)
+
+		// MCP 管理面（内置 MCP server 配置，走用户 JWT）
+		cors.POST("/common/mcp/get-status", controller.Mcp{}.GetStatus)
+		cors.POST("/common/mcp/update", controller.Mcp{}.Update)
+		cors.POST("/common/mcp/regenerate-token", controller.Mcp{}.RegenerateToken)
 		cors.POST("/common/setting/get-login-setting", controller.Setting{}.GetLoginSetting)
 		cors.POST("/common/setting/save-config", controller.Setting{}.SaveConfig)
 		cors.POST("/common/setting/delete", controller.Setting{}.Delete)

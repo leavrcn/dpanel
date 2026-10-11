@@ -19,6 +19,7 @@ import (
 	"github.com/donknap/dpanel/app/common/http/controller"
 	"github.com/donknap/dpanel/app/common/logic"
 	"github.com/donknap/dpanel/app/ctrl"
+	"github.com/donknap/dpanel/app/mcp"
 	"github.com/donknap/dpanel/app/socket"
 	"github.com/donknap/dpanel/common/accessor"
 	"github.com/donknap/dpanel/common/dao"
@@ -164,6 +165,9 @@ func main() {
 		new(common.Provider).Register(httpServer)
 		new(application.Provider).Register(httpServer)
 		new(socket.Provider).Register(httpServer.Engine)
+		// MCP server（内置）：注入 settings 存取实现后注册 MCP 端点
+		mcp.SetStore(mcpStore{})
+		new(mcp.Provider).Register(httpServer.Engine)
 	}
 
 	new(ctrl.Provider).Command(facade.GetConsole())

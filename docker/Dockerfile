@@ -14,6 +14,7 @@ WORKDIR /src
 
 COPY go.mod go.sum ./
 COPY app/agent/go.mod app/agent/go.sum ./app/agent/
+COPY app/mcp/go.mod app/mcp/go.sum ./app/mcp/
 RUN --mount=type=cache,target=/go/pkg/mod,id=dpanel_mod_cache \
     export HTTP_PROXY=${HTTP_PROXY} HTTPS_PROXY=${HTTP_PROXY} && \
     go mod download
